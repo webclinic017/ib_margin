@@ -1,0 +1,30 @@
+name: Scheduled Margin Update
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '0 */6 * * *'
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull image
+        run: docker pull volemont/ib_margin:latest
+
+      - name: Update data/ib_margin.csv
+        run: docker run --rm -v ${PWD}:/data volemont/ib_margin:latest /data/data/ib_margin.csv
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/ib_margin.csv
+          git diff-index --quiet HEAD || git commit -m "Update margin"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

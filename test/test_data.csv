@@ -1,0 +1,11 @@
+Time,Exchange,Underlying,Product description,Trading Class,Intraday Initial,Intraday Maintenance,Overnight Initial,Overnight Maintenance,Currency,Has Options,Short Overnight Initial,Short Overnight Maintenance
+2020-05-23T10:47:01Z,BELFOX,BFX,BEL 20 Index,BXF,6901.25,,6901.25,5521.0,EUR,Yes 2,6901.25,5521.0
+2020-05-23T10:47:01Z,CDE,BAX,3 Month Canadian Bankers' Acceptance Futures,BAX,921.25,,921.25,737.0,CAD,Yes 2,921.25,737.0
+2020-05-23T10:47:01Z,CDE,CGB,10 Year Government of Canada Bonds,CGB,3825.0,,3825.0,3060.0,CAD,No,3825.0,3060.0
+2020-05-23T10:47:01Z,CDE,CGF,5 Year Government of Canada Bonds,CGF,1850.0,,1850.0,1480.0,CAD,No,1850.0,1480.0
+2020-05-23T10:47:01Z,CDE,TSX,S&P TSX COMPOSITE INDEX,SCF,23885.0,,23885.0,19108.0,CAD,No,23885.0,19108.0
+2020-05-23T10:47:01Z,CDE,TSE60,S&P Canada 60 Index Futures (Old TSE60),SXF,30191.25,,30191.25,24153.0,CAD,Yes,30191.25,24153.0
+2020-05-23T10:47:01Z,CDE,TSE60,S&P Canada 60 Index Futures (Old TSE60),SXM,7547.5,,7547.5,6038.0,CAD,No,7547.5,6038.0
+2020-05-23T10:47:01Z,CFE,AMB90,CBOE Three-Month AMERIBOR Compound Average Rate Index,AMB3,1477.5,,1477.5,1182.0,USD,No,1477.5,1182.0
+2020-05-23T10:47:01Z,CFE,IBXXIBHY,iBoxx iShares $ High Yield Corporate Bond Index TR,IBHY,26250.0,,26250.0,21000.0,USD,No,26250.0,21000.0
+2020-05-23T10:47:01Z,CFE,IBXXIBIG,iBoxx iShares $ Investment Grade Corporate Bond Index TR,IBIG,23925.0,,23925.0,19140.0,USD,No,23925.0,19140.0
