@@ -101,4 +101,10 @@ def write(df: pd.DataFrame, file: Path) -> None:
     """Write margin to file"""
 
     assert check_data_frame(df)
-    df.to_csv(file, index=False, encoding="utf-8", date_format="%Y-%m-%dT%H:%M:%SZ")
+    df.to_csv(
+        file,
+        index=False,
+        encoding="utf-8",
+        date_format="%Y-%m-%dT%H:%M:%SZ",
+        float_format="%.6f",
+    )
