@@ -10,6 +10,7 @@ python_version = "3.7"
 pandas = "==1.0.3"
 requests = "==2.23.0"
 lxml = "==4.5.1"
+numpy = "==1.19.2"
 
 [dev-packages]
 black = "==19.3b0"

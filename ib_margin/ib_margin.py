@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import requests
 
@@ -37,7 +38,7 @@ def read(file: Path) -> pd.DataFrame:
 
 
 def download(
-    url: str = "https://www.interactivebrokers.com/en/index.php?f=26662"
+    url: str = "https://www.interactivebrokers.com/en/index.php?f=26662",
 ) -> pd.DataFrame:
     """Download margin"""
 
@@ -60,6 +61,21 @@ def download(
     return margin
 
 
+def drop_repeated_values(x):
+    """Identify consecutive repeated values and drop them"""
+    columns = [
+        "Intraday Initial",
+        "Overnight Initial",
+        "Overnight Maintenance",
+        "Short Overnight Initial",
+        "Short Overnight Maintenance",
+    ]
+    x = x.sort_values(by="Time")
+    changes = x.loc[:, columns].diff().abs()
+    changes = changes.round(2).replace(np.nan, 1).sum(axis=1)
+    return x.loc[changes > 0, :]
+
+
 def merge(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     """Concatenate data frames and drop duplicates"""
 
@@ -70,28 +86,7 @@ def merge(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
 
     # drop duplicates
     df["id"] = df["Exchange"] + df["Underlying"] + df["Trading Class"] + df["Currency"]
-    df = df.groupby(["id"], sort=False).apply(
-        lambda x: x[
-            (x["Intraday Initial"] != x["Intraday Initial"].shift(fill_value=0))
-            & (
-                x["Intraday Maintenance"]
-                != x["Intraday Maintenance"].shift(fill_value=0)
-            )
-            & (x["Overnight Initial"] != x["Overnight Initial"].shift(fill_value=0))
-            & (
-                x["Overnight Maintenance"]
-                != x["Overnight Maintenance"].shift(fill_value=0)
-            )
-            & (
-                x["Short Overnight Initial"]
-                != x["Short Overnight Initial"].shift(fill_value=0)
-            )
-            & (
-                x["Short Overnight Maintenance"]
-                != x["Short Overnight Maintenance"].shift(fill_value=0)
-            )
-        ]
-    )
+    df = df.groupby(["id"], sort=False).apply(drop_repeated_values)
     df = df.drop(["id"], axis=1).reset_index(drop=True)
 
     return df
